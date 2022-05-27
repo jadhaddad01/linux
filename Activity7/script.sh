@@ -1,5 +1,6 @@
 #!/bin/sh
 # Author : Jad H
+# NOT FINISHED
 
 TOTAL=0
 
