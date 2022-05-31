@@ -2,23 +2,66 @@
 # Author : Jad H
 # NOT FINISHED
 
+
 TOTAL=0
 
-# Only allow Y N as choice
-echo "Easy - Is Jad amazing:"
-while [ true ]
+# questions check
+if ! [ -f "questions" ]
+then
+    echo "Questions don't exist"
+    exit 1
+fi
+
+# read questions
+# FLAG=0
+# while read p; 
+# do
+#     # first line
+#     if [[ $FLAG == 0 ]]
+#     then
+#         echo $p
+#         FLAG=1
+    
+#     else
+            
+
+#         FLAG=0
+#     fi
+
+# done < questions
+
+FLAG=0
+for i in `cat questions`
 do
-    read a
-    if [[ "$a" =~ [Yy]+$ ]] && [[ ${#a} == 1 ]]
+    # first line
+    if [[ $FLAG == 0 ]]
     then
-        TOTAL=$(($TOTAL+1))
-        break
-    elif [[ "$a" =~ [Nn]+$ ]] && [[ ${#a} == 1 ]]
-    then
-        # TOTAL=$(($TOTAL+1))
-        break
+        echo $i
+        FLAG=1
+    # second line
+    else
+        while [ true ]
+        do
+            read a
+            if [[ "$a" =~ [Yy]+$ ]] && [[ ${#a} == 1 ]]
+            then
+                if [[ $i == "true" ]]
+                then
+                    TOTAL=$(($TOTAL+1))
+                fi
+                break
+            elif [[ "$a" =~ [Nn]+$ ]] && [[ ${#a} == 1 ]]
+            then
+                if [[ $i == "false" ]]
+                then
+                    TOTAL=$(($TOTAL+1))
+                fi
+                break
+            fi
+            echo "Re-enter answer (Y / N):"
+        done
+        FLAG=0
     fi
-    echo "Re-enter answer (Y / N):"
 done
 
 echo $TOTAL
